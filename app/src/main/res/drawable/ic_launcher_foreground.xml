@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Center glow ring -->
+    <path
+        android:fillColor="#1510B981"
+        android:pathData="M54,54m-28,0a28,28 0,1 1,56 0a28,28 0,1 1,-56 0" />
+    <!-- Barbell handle -->
+    <path
+        android:fillColor="#E2E8F0"
+        android:pathData="M38,51h32v6h-32z" />
+    <!-- Grip texture -->
+    <path
+        android:fillColor="#94A3B8"
+        android:pathData="M48,50h12v8h-12z" />
+    <!-- Left inner large plate -->
+    <path
+        android:fillColor="#10B981"
+        android:pathData="M33,35h5v38h-5z" />
+    <!-- Left outer medium plate -->
+    <path
+        android:fillColor="#34D399"
+        android:pathData="M27,39h4v30h-4z" />
+    <!-- Left small collar -->
+    <path
+        android:fillColor="#6EE7B7"
+        android:pathData="M23,45h3v18h-3z" />
+    <!-- Left end cap -->
+    <path
+        android:fillColor="#E2E8F0"
+        android:pathData="M20,52h2v4h-2z" />
+    <!-- Right inner large plate -->
+    <path
+        android:fillColor="#10B981"
+        android:pathData="M70,35h5v38h-5z" />
+    <!-- Right outer medium plate -->
+    <path
+        android:fillColor="#34D399"
+        android:pathData="M77,39h4v30h-4z" />
+    <!-- Right small collar -->
+    <path
+        android:fillColor="#6EE7B7"
+        android:pathData="M82,45h3v18h-3z" />
+    <!-- Right end cap -->
+    <path
+        android:fillColor="#E2E8F0"
+        android:pathData="M86,52h2v4h-2z" />
+    <!-- Top lightning/energy spark -->
+    <path
+        android:fillColor="#FBBF24"
+        android:pathData="M54,26l-3,9h5l-2,7l6,-10h-5z" />
+</vector>

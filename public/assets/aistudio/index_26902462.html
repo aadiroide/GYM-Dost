@@ -1,0 +1,1515 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>GYM Dost - Aapka Personal Gym & Diet Saathi</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
+    .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: #0f172a; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #475569; }
+    .card-strike { text-decoration: line-through; opacity: 0.55; }
+    @keyframes pulseSoft {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+    }
+    .badge-pulse { animation: pulseSoft 2.5s infinite ease-in-out; }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col antialiased selection:bg-emerald-500 selection:text-black">
+
+  <!-- Header Section -->
+  <header class="sticky top-0 z-40 bg-slate-900/95 backdrop-blur-md border-b border-slate-800">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500 via-teal-400 to-amber-300 flex items-center justify-center text-xl shadow-lg shadow-emerald-500/20 font-black text-slate-950">
+          💪
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="font-extrabold text-lg sm:text-xl tracking-tight text-white flex items-center gap-1.5">
+              <span>GYM Dost</span>
+            </h1>
+            <span id="header-user-badge" class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">Free Edition</span>
+          </div>
+          <p id="header-subtitle" class="text-xs text-slate-400 hidden sm:block">Aapka Daily Gym Workout Partner & Smart Nutrition Guide</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button id="btn-open-profile" class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-800 text-slate-200 border border-slate-700 hover:bg-slate-700 transition flex items-center gap-1.5 shadow-sm">
+          <span>👤</span> <span id="btn-profile-text">My Profile</span>
+        </button>
+        <button id="btn-reset-day" class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-rose-500/10 text-rose-400 border border-rose-500/20 hover:bg-rose-500/20 transition">
+          Reset Today
+        </button>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="max-w-6xl mx-auto px-4 pt-1 pb-3 flex items-center justify-start gap-2 overflow-x-auto no-scrollbar">
+      <button id="tab-all" class="tab-btn px-4 py-1.5 text-xs font-bold rounded-lg bg-emerald-500 text-slate-950 transition shadow-sm">
+        Dashboard View
+      </button>
+      <button id="tab-intake" class="tab-btn px-4 py-1.5 text-xs font-semibold rounded-lg bg-slate-800/80 text-slate-300 hover:text-white transition">
+        🍽️ Aaj Kya Khaya (Live Tracker)
+      </button>
+      <button id="tab-workout" class="tab-btn px-4 py-1.5 text-xs font-semibold rounded-lg bg-slate-800/80 text-slate-300 hover:text-white transition">
+        🏋️ Workout (Sunday Off)
+      </button>
+      <button id="tab-diet" class="tab-btn px-4 py-1.5 text-xs font-semibold rounded-lg bg-slate-800/80 text-slate-300 hover:text-white transition">
+        🥑 Diet & Food Search
+      </button>
+      <button id="tab-history" class="tab-btn px-4 py-1.5 text-xs font-semibold rounded-lg bg-slate-800/80 text-slate-300 hover:text-white transition">
+        ⚙️ App Architecture
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="flex-1 max-w-6xl w-full mx-auto px-4 py-5 space-y-5">
+
+    <!-- USER PROFILE WELCOME BANNER (Personalized from Onboarding) -->
+    <section id="user-banner-card" class="bg-gradient-to-r from-slate-900 via-slate-800/90 to-slate-900 border border-slate-700/80 rounded-2xl p-4 sm:p-5 shadow-lg relative overflow-hidden">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 relative z-10">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-xs text-emerald-400 font-bold uppercase tracking-wider">Namaste Dost 👋</span>
+            <span id="user-timeline-badge" class="text-[10px] bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 px-2 py-0.5 rounded-full font-semibold">6 Months Target</span>
+            <span class="text-[10px] bg-amber-500/10 border border-amber-500/30 text-amber-300 px-2 py-0.5 rounded-full font-semibold">Sunday OFF</span>
+          </div>
+          <h2 class="text-xl sm:text-2xl font-black text-white" id="user-display-name">Rahul Sharma</h2>
+          <p class="text-xs text-slate-300 mt-1" id="user-goal-summary">
+            Goal: <strong class="text-amber-400">Weight Gain (Muscle Bulk)</strong> | Target: <strong class="text-white">2,550 kcal / day</strong> | Protein: <strong class="text-sky-400">145g / day</strong>
+          </p>
+        </div>
+
+        <div class="flex items-center gap-2 flex-wrap">
+          <div class="px-3 py-2 bg-slate-950/70 border border-slate-700 rounded-xl text-center min-w-[75px]">
+            <span class="text-[10px] text-slate-400 block font-medium">Weight</span>
+            <span class="text-sm font-bold text-white" id="stat-weight">70 kg</span>
+          </div>
+          <div class="px-3 py-2 bg-slate-950/70 border border-slate-700 rounded-xl text-center min-w-[75px]">
+            <span class="text-[10px] text-slate-400 block font-medium">Height</span>
+            <span class="text-sm font-bold text-white" id="stat-height">175 cm</span>
+          </div>
+          <div class="px-3 py-2 bg-slate-950/70 border border-slate-700 rounded-xl text-center min-w-[75px]">
+            <span class="text-[10px] text-slate-400 block font-medium">BMI</span>
+            <span class="text-sm font-bold text-emerald-400" id="stat-bmi">22.9</span>
+          </div>
+          <button id="btn-re-edit-profile" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-600 rounded-xl text-xs font-semibold text-slate-200 transition">
+            ✏️ Edit Profile
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- LIVE NUTRITION BALANCE CARD (Eaten vs Target vs REMAINING) -->
+    <section class="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 shadow-sm">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+        <div>
+          <h3 class="text-base font-bold text-white flex items-center gap-2">
+            <span>⚡</span> <span>Daily Nutrition & Remaining Balance</span>
+          </h3>
+          <p class="text-xs text-slate-400">Aap jo bhi khate hain wo yahan auto-adjust hota hai</p>
+        </div>
+        <span id="nutrition-status-msg" class="text-xs font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-lg">
+          Track active for today
+        </span>
+      </div>
+
+      <!-- 4 Live Macro Tracker Cards -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+        <!-- Calorie Card -->
+        <div class="p-4 bg-slate-950/80 border border-slate-800 rounded-xl">
+          <div class="flex items-center justify-between text-xs">
+            <span class="text-amber-400 font-bold">Calories (kcal)</span>
+            <span class="text-[11px] text-slate-400" id="lbl-cal-target">/ 2,550</span>
+          </div>
+          <div class="mt-2 flex items-baseline justify-between">
+            <span class="text-2xl font-black text-white" id="kpi-cals-eaten">0</span>
+            <span class="text-xs font-bold text-amber-400" id="kpi-cals-rem">2,550 bachi</span>
+          </div>
+          <div class="w-full bg-slate-800 h-2 rounded-full mt-2.5 overflow-hidden">
+            <div id="bar-cals" class="bg-amber-400 h-full rounded-full transition-all duration-300 w-0"></div>
+          </div>
+          <p class="text-[10px] text-slate-500 mt-2 font-medium" id="sub-cal-rem">Target: 2,550 kcal</p>
+        </div>
+
+        <!-- Protein Card -->
+        <div class="p-4 bg-slate-950/80 border border-slate-800 rounded-xl">
+          <div class="flex items-center justify-between text-xs">
+            <span class="text-indigo-400 font-bold">Protein (g)</span>
+            <span class="text-[11px] text-slate-400" id="lbl-prot-target">/ 145g</span>
+          </div>
+          <div class="mt-2 flex items-baseline justify-between">
+            <span class="text-2xl font-black text-white" id="kpi-prot-eaten">0g</span>
+            <span class="text-xs font-bold text-indigo-400" id="kpi-prot-rem">145g aur chahiye</span>
+          </div>
+          <div class="w-full bg-slate-800 h-2 rounded-full mt-2.5 overflow-hidden">
+            <div id="bar-prot" class="bg-indigo-500 h-full rounded-full transition-all duration-300 w-0"></div>
+          </div>
+          <p class="text-[10px] text-slate-500 mt-2 font-medium" id="sub-prot-rem">Essential for muscle repair</p>
+        </div>
+
+        <!-- Workout Routine Status -->
+        <div class="p-4 bg-slate-950/80 border border-slate-800 rounded-xl">
+          <div class="flex items-center justify-between text-xs">
+            <span class="text-emerald-400 font-bold">Daily Workout</span>
+            <span id="kpi-workout-pct" class="text-emerald-400 font-bold">0%</span>
+          </div>
+          <div class="mt-2 flex items-baseline justify-between">
+            <span class="text-2xl font-black text-white" id="kpi-workout-count">0 / 6</span>
+            <span class="text-xs text-slate-400" id="badge-workout-day">Day A: Push</span>
+          </div>
+          <div class="w-full bg-slate-800 h-2 rounded-full mt-2.5 overflow-hidden">
+            <div id="bar-workout" class="bg-emerald-500 h-full rounded-full transition-all duration-300 w-0"></div>
+          </div>
+          <p class="text-[10px] text-slate-500 mt-2 font-medium">Sunday: Automatic Rest Day</p>
+        </div>
+
+        <!-- Water / Recovery Card -->
+        <div class="p-4 bg-slate-950/80 border border-slate-800 rounded-xl">
+          <div class="flex items-center justify-between text-xs">
+            <span class="text-sky-400 font-bold">Water & Rest</span>
+            <span class="text-[11px] text-sky-400 font-semibold" id="lbl-water-target">3.5 L target</span>
+          </div>
+          <div class="mt-2 flex items-baseline justify-between">
+            <span class="text-2xl font-black text-white" id="kpi-water-logged">0 Glass</span>
+            <button id="btn-add-water" class="text-xs font-bold text-sky-400 bg-sky-500/10 hover:bg-sky-500/20 px-2 py-0.5 rounded border border-sky-500/30">
+              +1 Glass
+            </button>
+          </div>
+          <div class="w-full bg-slate-800 h-2 rounded-full mt-2.5 overflow-hidden">
+            <div id="bar-water" class="bg-sky-400 h-full rounded-full transition-all duration-300 w-0"></div>
+          </div>
+          <p class="text-[10px] text-slate-500 mt-2 font-medium">Keep hydrated for protein synthesis</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Content Sections Wrapper -->
+    <div id="view-dashboard" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+      <!-- COLUMN 1: LIVE INTAKE & LOGGING ("Morning se Saam tak jo bhi khayein") -->
+      <section id="sec-intake" class="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 shadow-sm flex flex-col">
+        <div class="flex items-center justify-between mb-3">
+          <div>
+            <h3 class="text-base font-bold text-white flex items-center gap-2">
+              <span>🍽️</span> <span>Aaj Maine Kya Khaya</span>
+            </h3>
+            <p class="text-xs text-slate-400 mt-0.5">Morning to Night real-time meal & snack logger</p>
+          </div>
+          <button id="btn-open-log-food" class="px-3 py-1.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs rounded-lg transition flex items-center gap-1 shadow-sm">
+            <span>➕</span> <span>Log Custom Food</span>
+          </button>
+        </div>
+
+        <!-- Quick 1-Click Common Gym Snacks (Instant Add to Eaten Log) -->
+        <div class="mb-3 p-3 bg-slate-950/80 border border-slate-800 rounded-xl">
+          <span class="text-[11px] font-bold text-slate-300 block mb-2">⚡ 1-Click Quick Add Snacks (e.g. 100g Peanuts, Eggs, Whey):</span>
+          <div class="flex flex-wrap gap-1.5" id="quick-snacks-container">
+            <!-- Dynamically populated chips -->
+          </div>
+        </div>
+
+        <!-- Today's Logged Items List -->
+        <div class="flex-1">
+          <div class="flex items-center justify-between text-xs text-slate-400 mb-2 font-medium">
+            <span>Logged Food Items</span>
+            <span id="intake-count-text">0 items added</span>
+          </div>
+          <div id="intake-log-container" class="space-y-2 max-h-[360px] overflow-y-auto custom-scrollbar">
+            <!-- Dynamically populated via JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- COLUMN 2: WORKOUT CHART WITH SUNDAY OFF -->
+      <section id="sec-workout" class="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 shadow-sm flex flex-col">
+        <div class="flex items-center justify-between mb-3">
+          <div>
+            <h3 class="text-base font-bold text-white flex items-center gap-2">
+              <span class="text-emerald-400">🏋️</span> Weekly Routine (Sunday OFF)
+            </h3>
+            <p class="text-xs text-slate-400 mt-0.5">Optimized for your selected fitness goal & timeline</p>
+          </div>
+          <select id="filter-workout-day" class="bg-slate-800 border border-slate-700 text-xs text-slate-200 rounded-lg px-2.5 py-1 focus:outline-none focus:ring-1 focus:ring-emerald-500">
+            <option value="mon">Mon: Day 1 - Push (Chest/Shoulders/Triceps)</option>
+            <option value="tue">Tue: Day 2 - Pull (Back/Biceps/Rear Delts)</option>
+            <option value="wed">Wed: Day 3 - Legs & Core (Squats/Hamstrings)</option>
+            <option value="thu">Thu: Day 4 - Push & Hypertrophy</option>
+            <option value="fri">Fri: Day 5 - Pull & Thickness</option>
+            <option value="sat">Sat: Day 6 - Legs & Calves/Abs</option>
+            <option value="sun">Sun: Rest Day (SUNDAY OFF) 🛌</option>
+          </select>
+        </div>
+
+        <!-- Sunday OFF Notification Banner (Visible on Sunday) -->
+        <div id="sunday-off-banner" class="hidden mb-3 p-3.5 bg-amber-500/10 border border-amber-500/30 rounded-xl text-xs text-amber-200">
+          <span class="font-bold block text-sm mb-0.5">🛌 Sunday Rest & Recovery Day!</span>
+          <span>No heavy gym workout today. Apne muscles ko heal hone dein, 3.5L water complete karein aur protein intake maintain rakhein. Light walking aur body stretching kar sakte hain.</span>
+        </div>
+
+        <!-- Exercise Item List -->
+        <div id="workout-list-container" class="space-y-2.5 flex-1 custom-scrollbar max-h-[380px] overflow-y-auto">
+          <!-- Dynamically populated via JS -->
+        </div>
+
+        <!-- Add Custom Exercise Trigger -->
+        <button id="btn-add-exercise-modal" class="mt-4 w-full py-2.5 px-3 border border-dashed border-slate-700 hover:border-emerald-500/50 rounded-xl text-xs font-semibold text-slate-400 hover:text-emerald-400 transition flex items-center justify-center gap-2 bg-slate-950/40">
+          <span>➕</span> <span>Add Custom Exercise to Current Day</span>
+        </button>
+      </section>
+
+    </div>
+
+    <!-- DIET PLANNER & SMART FOOD SEARCH (Shared or Tab View) -->
+    <section id="sec-diet" class="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 shadow-sm">
+      <div class="flex items-center justify-between mb-3">
+        <div>
+          <h3 class="text-base font-bold text-white flex items-center gap-2">
+            <span class="text-sky-400">🥑</span> Recommended Diet Plan with 3D Icons
+          </h3>
+          <p class="text-xs text-slate-400 mt-0.5">Google Nutrition Search aur 1-Click Intake add integration</p>
+        </div>
+        <span class="text-xs font-bold text-sky-400 px-2.5 py-1 bg-sky-500/10 border border-sky-500/20 rounded-md">Macro Optimized</span>
+      </div>
+
+      <!-- SMART FOOD NUTRITION SEARCH BAR (Restricted to Food & Nutrition) -->
+      <div class="mb-4 p-3.5 bg-slate-950/90 border border-slate-800 rounded-xl shadow-inner">
+        <div class="flex items-center justify-between gap-1 mb-2">
+          <label for="food-search-input" class="text-xs font-bold text-sky-400 flex items-center gap-1.5">
+            <span>🔍</span> <span>Smart Food Nutrition Search</span>
+          </label>
+          <span class="text-[10px] text-slate-400 bg-slate-800 px-2 py-0.5 rounded border border-slate-700">Google Nutrition Filtered</span>
+        </div>
+
+        <div class="flex gap-2">
+          <div class="relative flex-1">
+            <input type="text" id="food-search-input" 
+                   placeholder="Search food (e.g. 100g Raw Peanuts, 2 Eggs, Paneer, Whey)..." 
+                   class="w-full bg-slate-900 border border-slate-700 rounded-lg py-2 pl-3 pr-8 text-xs text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-sky-500">
+            <button id="btn-clear-food-search" class="absolute right-2.5 top-2.5 text-slate-500 hover:text-slate-300 text-xs hidden">✕</button>
+          </div>
+          
+          <!-- Google Nutrition Search Button -->
+          <button id="btn-google-nutrition" 
+                  title="Search calories & protein on Google"
+                  class="px-3 py-2 bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-500 hover:to-blue-500 text-white rounded-lg text-xs font-bold transition flex items-center gap-1.5 shadow-sm flex-shrink-0">
+            <span>Google Facts</span>
+            <svg class="w-3 h-3 text-sky-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </button>
+
+          <!-- Quick Log to Intake Tracker Button -->
+          <button id="btn-quick-log-searched" 
+                  title="Log this food into today's intake"
+                  class="px-3 py-2 bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold rounded-lg text-xs transition flex items-center gap-1 shadow-sm flex-shrink-0">
+            <span>+ Log Khana</span>
+          </button>
+        </div>
+
+        <!-- Instant Suggestions & Common Food Macros -->
+        <div id="quick-food-suggestions" class="mt-2.5 flex flex-wrap gap-1.5 max-h-24 overflow-y-auto custom-scrollbar">
+          <!-- Dynamically populated or quick tags -->
+        </div>
+      </div>
+
+      <!-- Meal Schedule Items List with 3D Icons -->
+      <div id="diet-list-container" class="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+        <!-- Dynamically populated via JS with 3D icons -->
+      </div>
+    </section>
+
+    <!-- Analytics & Stats Tab View (Initially Hidden) -->
+    <section id="view-history" class="hidden space-y-5">
+      <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-6">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-xl">
+            💪
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-white">GYM Dost - Architecture & Free Lifetime Deployment</h3>
+            <p class="text-xs text-slate-400">Zero Cloud Database Cost & Offline Friendly</p>
+          </div>
+        </div>
+
+        <p class="text-sm text-slate-300 mb-4 leading-relaxed">
+          <strong>GYM Dost</strong> complete <strong>Client-Side LocalStorage Architecture</strong> par chalta hai. Iska matlab hai ki aapka daily exercise status, diet plans, profile metrics aur intake logs consumer ke phone ki internal memory me automatically persist hote hain. Iske liye koi paid cloud server ya monthly database charges nahi dene padenge.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+          <div class="p-4 bg-slate-800/60 rounded-xl border border-slate-700">
+            <span class="text-emerald-400 font-bold block mb-1">Zero Database Cost</span>
+            <span class="text-slate-400">Complete browser offline cache used. Free lifetime runs on GitHub Pages / Vercel.</span>
+          </div>
+          <div class="p-4 bg-slate-800/60 rounded-xl border border-slate-700">
+            <span class="text-sky-400 font-bold block mb-1">Real-time Remaining Macros</span>
+            <span class="text-slate-400">Automatic subtraction: jaise hi kuch khayein, remaining calories aur protein auto-calculate ho jate hain.</span>
+          </div>
+          <div class="p-4 bg-slate-800/60 rounded-xl border border-slate-700">
+            <span class="text-amber-400 font-bold block mb-1">Sunday Off & Timeline</span>
+            <span class="text-slate-400">Weekly Sunday recovery day with customized 3-month, 6-month ya 1-year transformation plan.</span>
+          </div>
+        </div>
+
+        <!-- Creator & Support Card -->
+        <div class="mt-5 p-4 rounded-xl bg-slate-950/80 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <span class="text-xs font-bold text-slate-200 block flex items-center gap-1.5">
+              <span>🇮🇳</span> <span>Made with ❤️ in Kanpur</span>
+            </span>
+            <span class="text-[11px] text-slate-400">Aapka local personal gym & diet companion.</span>
+          </div>
+          <div class="text-left sm:text-right">
+            <span class="text-[11px] text-slate-400 block">Official Support:</span>
+            <a href="mailto:aadiroide@gmail.com" class="text-xs font-bold text-emerald-400 hover:text-emerald-300 underline">aadiroide@gmail.com</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Simulated Mobile AdMob Banner Slot (Shows placement for APK wrap) -->
+    <div class="mt-6 p-3 rounded-xl bg-slate-900/40 border border-slate-800 text-center">
+      <span class="text-[10px] uppercase font-bold tracking-widest text-slate-600 block mb-1">Google AdMob Test Placement (Adaptive Banner)</span>
+      <div class="h-14 sm:h-16 w-full max-w-lg mx-auto bg-slate-800/50 rounded-lg flex items-center justify-center border border-dashed border-slate-700 text-xs text-slate-400">
+        📢 AdMob Banner Space (320x50 / Smart Banner)
+      </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="mt-8 pt-6 pb-6 border-t border-slate-800/80 text-center space-y-2">
+      <div class="flex items-center justify-center gap-1.5 text-xs font-bold text-slate-200">
+        <span>🇮🇳</span> <span>Made with ❤️ in Kanpur</span>
+      </div>
+      <p class="text-xs text-slate-400">
+        Support & Feedback: 
+        <a href="mailto:aadiroide@gmail.com" class="text-emerald-400 hover:text-emerald-300 font-bold underline underline-offset-4 transition">
+          aadiroide@gmail.com
+        </a>
+      </p>
+      <p class="text-[10px] text-slate-600">
+        © 2026 GYM Dost • 100% Client-Side Privacy Protected • Zero Server Cost
+      </p>
+    </footer>
+
+  </main>
+
+  <!-- ONBOARDING & PROFILE SETUP MODAL (Appears on first launch or via Edit Profile) -->
+  <div id="modal-onboarding" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-lg w-full p-6 sm:p-7 shadow-2xl relative max-h-[90vh] overflow-y-auto custom-scrollbar">
+      <button id="btn-close-onboarding" class="absolute top-5 right-5 text-slate-400 hover:text-white text-lg">✕</button>
+      
+      <div class="text-center mb-5">
+        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-500 to-amber-300 flex items-center justify-center text-2xl mx-auto mb-2 shadow-lg shadow-emerald-500/20">
+          💪
+        </div>
+        <h3 class="text-xl font-black text-white">GYM Dost Profile Setup</h3>
+        <p class="text-xs text-slate-400 mt-1">Apni personal details bhariye taaki aapka daily workout aur diet calculate ho sake</p>
+      </div>
+
+      <form id="form-onboarding" class="space-y-4 text-xs">
+        <!-- Name -->
+        <div>
+          <label class="block text-slate-300 font-bold mb-1">Aapka Naam (Consumer Name) *</label>
+          <input type="text" id="ob-name" required placeholder="e.g. Rahul Sharma" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-white focus:ring-1 focus:ring-emerald-500 outline-none text-xs">
+        </div>
+
+        <!-- Gender & Age -->
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-slate-300 font-bold mb-1">Gender *</label>
+            <select id="ob-gender" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-white focus:ring-1 focus:ring-emerald-500 outline-none text-xs">
+              <option value="male" selected>Male 👨</option>
+              <option value="female">Female 👩</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-slate-300 font-bold mb-1">Age (Years) *</label>
+            <input type="number" id="ob-age" min="14" max="80" value="24" required class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-white focus:ring-1 focus:ring-emerald-500 outline-none text-xs">
+          </div>
+        </div>
+
+        <!-- Height & Weight -->
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-slate-300 font-bold mb-1">Weight (in kg) *</label>
+            <input type="number" id="ob-weight" step="0.5" min="30" max="250" value="70" required class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-white focus:ring-1 focus:ring-emerald-500 outline-none text-xs">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-bold mb-1">Height (in cm) *</label>
+            <input type="number" id="ob-height" min="100" max="230" value="175" required class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-white focus:ring-1 focus:ring-emerald-500 outline-none text-xs">
+          </div>
+        </div>
+
+        <!-- Fitness Goal -->
+        <div>
+          <label class="block text-slate-300 font-bold mb-1">Fitness Goal *</label>
+          <select id="ob-goal" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-white focus:ring-1 focus:ring-emerald-500 outline-none text-xs">
+            <option value="bulk" selected>Weight Gain / Muscle Bulk (+400 kcal surplus)</option>
+            <option value="cut">Weight Loss / Fat Cutting (-500 kcal deficit)</option>
+            <option value="maintain">Body Recomposition / Stay Fit & Lean (Maintenance)</option>
+          </select>
+        </div>
+
+        <!-- Timeline to Achieve Goal -->
+        <div>
+          <label class="block text-slate-300 font-bold mb-1">Goal Achieve Karne Ka Timeframe (Target Duration) *</label>
+          <select id="ob-timeline" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-white focus:ring-1 focus:ring-emerald-500 outline-none text-xs">
+            <option value="3_months">3 Months (Aggressive / Fast Pace)</option>
+            <option value="6_months" selected>6 Months (Balanced & Sustainable - Recommended)</option>
+            <option value="12_months">1 Year (Long-term Muscle & Lifestyle Transformation)</option>
+          </select>
+        </div>
+
+        <!-- Activity Level -->
+        <div>
+          <label class="block text-slate-300 font-bold mb-1">Daily Activity Level</label>
+          <select id="ob-activity" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-white focus:ring-1 focus:ring-emerald-500 outline-none text-xs">
+            <option value="1.2">Sedentary (Little or no workout)</option>
+            <option value="1.375">Lightly Active (Workout 1-3 days/wk)</option>
+            <option value="1.55" selected>Moderately Active (Workout 4-5 days/wk)</option>
+            <option value="1.725">Very Active (Hard training 6 days/wk)</option>
+          </select>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="mt-4 w-full py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-sm transition shadow-lg shadow-emerald-500/20">
+          Save & Optimize My Profile 🚀
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: Log Custom Food into "Aaj Kya Khaya" -->
+  <div id="modal-log-food" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-sm w-full p-5 shadow-2xl relative">
+      <button id="btn-close-log-food" class="absolute top-4 right-4 text-slate-400 hover:text-white">✕</button>
+      <h3 class="text-base font-bold text-white mb-1">Log Food (Aaj Kya Khaya)</h3>
+      <p class="text-xs text-slate-400 mb-3">Jo bhi khaya use enter karein, remaining goals auto-update honge</p>
+
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block text-slate-300 font-medium mb-1">Food Item Name *</label>
+          <input type="text" id="log-food-name" placeholder="e.g. 100g Raw Peanuts" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white outline-none">
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block text-slate-300 font-medium mb-1">Calories (kcal) *</label>
+            <input type="number" id="log-food-cals" placeholder="567" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white outline-none">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-medium mb-1">Protein (g) *</label>
+            <input type="number" id="log-food-prot" placeholder="26" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white outline-none">
+          </div>
+        </div>
+        <div>
+          <label class="block text-slate-300 font-medium mb-1">Time / Meal Timing</label>
+          <select id="log-food-time" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white outline-none">
+            <option value="Morning">Morning / Breakfast</option>
+            <option value="Mid-Day">Mid-Day Snack</option>
+            <option value="Lunch">Lunch</option>
+            <option value="Pre-Workout">Pre-Workout</option>
+            <option value="Post-Workout">Post-Workout</option>
+            <option value="Evening">Evening Snack</option>
+            <option value="Dinner">Dinner</option>
+            <option value="Night">Bedtime</option>
+          </select>
+        </div>
+      </div>
+      <button id="btn-save-food-log" class="mt-4 w-full py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs rounded-xl transition">
+        Add to Today's Intake
+      </button>
+    </div>
+  </div>
+
+  <!-- MODAL: Add Custom Exercise -->
+  <div id="modal-exercise" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-sm w-full p-5 shadow-2xl relative">
+      <button id="btn-close-exercise" class="absolute top-4 right-4 text-slate-400 hover:text-white">✕</button>
+      <h3 class="text-base font-bold text-white mb-3">Add Custom Workout</h3>
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block text-slate-300 font-medium mb-1">Exercise Name</label>
+          <input type="text" id="new-ex-name" placeholder="e.g. Incline Cable Flyes" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white outline-none">
+        </div>
+        <div>
+          <label class="block text-slate-300 font-medium mb-1">Target Muscle Group</label>
+          <input type="text" id="new-ex-target" placeholder="e.g. Upper Chest" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white outline-none">
+        </div>
+        <div>
+          <label class="block text-slate-300 font-medium mb-1">Sets & Reps</label>
+          <input type="text" id="new-ex-sets" placeholder="e.g. 3 Sets × 12 Reps" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white outline-none">
+        </div>
+      </div>
+      <button id="btn-save-exercise" class="mt-4 w-full py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs rounded-xl transition">
+        Save to Current Routine
+      </button>
+    </div>
+  </div>
+
+  <!-- Toast Notification Element -->
+  <div id="toast" class="fixed bottom-5 right-5 max-w-xs px-4 py-3 bg-slate-900 border border-slate-700 text-slate-100 rounded-xl shadow-2xl opacity-0 pointer-events-none transition-all duration-300 transform translate-y-3 text-xs flex items-center gap-2.5 z-50">
+    <span id="toast-icon">✨</span>
+    <span id="toast-msg">Updated successfully</span>
+  </div>
+
+  <!-- Application Logic -->
+  <script>
+    // 3D Fluent Emojis (Free CDN from Microsoft FluentUI Emoji assets with fallback)
+    const ICONS_3D = {
+      coffee: 'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Hot%20beverage/3D/hot_beverage_3d.png',
+      banana: 'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Banana/3D/banana_3d.png',
+      oats: 'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Sheaf%20of%20rice/3D/sheaf_of_rice_3d.png',
+      egg: 'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Egg/3D/egg_3d.png',
+      chicken: 'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Poultry%20leg/3D/poultry_leg_3d.png',
+      rice: 'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Cooked%20rice/3D/cooked_rice_3d.png',
+      salad: 'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Green%20salad/3D/green_salad_3d.png',
+      paneer: 'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Cheese%20wedge/3D/cheese_wedge_3d.png',
+      milk: 'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Glass%20of%20milk/3D/glass_of_milk_3d.png',
+      peanuts: 'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Peanuts/3D/peanuts_3d.png',
+      sweetPotato: 'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Roasted%20sweet%20potato/3D/roasted_sweet_potato_3d.png',
+      fish: 'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Fish/3D/fish_3d.png',
+      apple: 'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Red%20apple/3D/red_apple_3d.png',
+      defaultMeal: 'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Bento%20box/3D/bento_box_3d.png'
+    };
+
+    // Quick Snacks & Foods for 1-Click Intake Logging
+    const QUICK_SNACKS = [
+      { name: '100g Raw Peanuts', cals: 567, protein: 26, emoji: '🥜' },
+      { name: '2 Boiled Eggs', cals: 156, protein: 13, emoji: '🥚' },
+      { name: '1 Scoop Whey Protein', cals: 125, protein: 24, emoji: '🥛' },
+      { name: '100g Fresh Paneer', cals: 265, protein: 18, emoji: '🧀' },
+      { name: '1 Medium Banana', cals: 105, protein: 1.3, emoji: '🍌' },
+      { name: '50g Roasted Chana', cals: 180, protein: 10, emoji: '🌰' },
+      { name: '100g Chicken Breast', cals: 165, protein: 31, emoji: '🍗' },
+      { name: '50g Soya Chunks', cals: 172, protein: 26, emoji: '🌱' }
+    ];
+
+    // Quick Food Library for Search Bar
+    const QUICK_FOOD_LIBRARY = [
+      { name: '100g Raw Peanuts', cals: 567, protein: 26, desc: 'Healthy high-calorie fats & protein', iconKey: 'peanuts', emoji: '🥜' },
+      { name: '100g Paneer', cals: 265, protein: 18, desc: 'Fresh cottage cheese', iconKey: 'paneer', emoji: '🧀' },
+      { name: '100g Chicken Breast', cals: 165, protein: 31, desc: 'Boiled or grilled lean protein', iconKey: 'chicken', emoji: '🍗' },
+      { name: '2 Boiled Eggs', cals: 156, protein: 13, desc: '2 whole eggs', iconKey: 'egg', emoji: '🥚' },
+      { name: '50g Soya Chunks', cals: 172, protein: 26, desc: 'High-protein vegetarian meal', iconKey: 'salad', emoji: '🌱' },
+      { name: '1 Scoop Whey Protein', cals: 125, protein: 24, desc: '33g serving with water', iconKey: 'milk', emoji: '🥛' },
+      { name: '50g Rolled Oats', cals: 195, protein: 8.5, desc: 'Complex carbs with high fiber', iconKey: 'oats', emoji: '🌾' },
+      { name: '1 Medium Banana', cals: 105, protein: 1.3, desc: 'Pre-workout instant energy', iconKey: 'banana', emoji: '🍌' },
+      { name: '2 Tbsp Peanut Butter (32g)', cals: 190, protein: 8, desc: 'Healthy calorie-dense fats', iconKey: 'peanuts', emoji: '🥜' },
+      { name: '150g Boiled Brown Rice', cals: 165, protein: 3.5, desc: '1 cup cooked whole grain rice', iconKey: 'rice', emoji: '🍚' },
+      { name: '150g Sweet Potato', cals: 130, protein: 2.3, desc: 'Boiled low GI fitness carb', iconKey: 'sweetPotato', emoji: '🍠' },
+      { name: '1 Glass Milk (250ml)', cals: 125, protein: 8.5, desc: 'Low-fat milk with casein', iconKey: 'milk', emoji: '🥛' }
+    ];
+
+    // Full 7-Day Workout Routine (Mon to Sat active, SUNDAY OFF)
+    const FULL_WEEK_ROUTINES = {
+      mon: [
+        { id: 'm1', name: 'Barbell Flat Bench Press', target: 'Chest & Triceps', sets: '4 Sets × 8-10 Reps', checked: false },
+        { id: 'm2', name: 'Incline Dumbbell Press', target: 'Upper Chest', sets: '3 Sets × 10-12 Reps', checked: false },
+        { id: 'm3', name: 'Overhead Dumbbell Shoulder Press', target: 'Anterior & Lateral Delts', sets: '3 Sets × 10 Reps', checked: false },
+        { id: 'm4', name: 'Dumbbell Lateral Raises', target: 'Side Delts', sets: '4 Sets × 15 Reps', checked: false },
+        { id: 'm5', name: 'Cable Tricep Pushdowns', target: 'Triceps Lateral Head', sets: '3 Sets × 12 Reps', checked: false },
+        { id: 'm6', name: 'Overhead Tricep Rope Extension', target: 'Triceps Long Head', sets: '3 Sets × 12 Reps', checked: false }
+      ],
+      tue: [
+        { id: 't1', name: 'Barbell Bent-Over Rows', target: 'Mid Back & Lats', sets: '4 Sets × 8-10 Reps', checked: false },
+        { id: 't2', name: 'Wide Grip Lat Pulldown', target: 'Lats & Teres Major', sets: '3 Sets × 10-12 Reps', checked: false },
+        { id: 't3', name: 'Seated Cable Row', target: 'Rhomboids & Traps', sets: '3 Sets × 12 Reps', checked: false },
+        { id: 't4', name: 'Face Pulls with Rope', target: 'Rear Delts & Rotators', sets: '4 Sets × 15 Reps', checked: false },
+        { id: 't5', name: 'Incline Dumbbell Bicep Curls', target: 'Biceps Long Head', sets: '3 Sets × 12 Reps', checked: false },
+        { id: 't6', name: 'Dumbbell Hammer Curls', target: 'Brachialis & Forearms', sets: '3 Sets × 12 Reps', checked: false }
+      ],
+      wed: [
+        { id: 'w1', name: 'Barbell Back Squats', target: 'Quads & Glutes', sets: '4 Sets × 8-10 Reps', checked: false },
+        { id: 'w2', name: 'Romanian Deadlifts (RDL)', target: 'Hamstrings & Glutes', sets: '3 Sets × 10 Reps', checked: false },
+        { id: 'w3', name: 'Leg Press Machine', target: 'Quad Hypertrophy', sets: '3 Sets × 12-15 Reps', checked: false },
+        { id: 'w4', name: 'Lying Hamstring Curls', target: 'Hamstring Isolation', sets: '3 Sets × 12 Reps', checked: false },
+        { id: 'w5', name: 'Standing Calf Raises', target: 'Calves (Gastrocnemius)', sets: '4 Sets × 15-20 Reps', checked: false },
+        { id: 'w6', name: 'Hanging Leg Raises & Plank', target: 'Core & Lower Abs', sets: '3 Sets × 15 Reps', checked: false }
+      ],
+      thu: [
+        { id: 'th1', name: 'Dumbbell Flat Bench Press', target: 'Chest Volume', sets: '4 Sets × 10-12 Reps', checked: false },
+        { id: 'th2', name: 'Incline Cable Flyes', target: 'Chest Inner Squeeze', sets: '3 Sets × 12-15 Reps', checked: false },
+        { id: 'th3', name: 'Arnold Dumbbell Press', target: 'Full Shoulder Rotation', sets: '3 Sets × 10 Reps', checked: false },
+        { id: 'th4', name: 'Cable Lateral Raises', target: 'Side Delt Hypertrophy', sets: '4 Sets × 15 Reps', checked: false },
+        { id: 'th5', name: 'Skull Crushers (EZ Bar)', target: 'Triceps Mass', sets: '3 Sets × 10 Reps', checked: false }
+      ],
+      fri: [
+        { id: 'f1', name: 'Conventional Deadlifts', target: 'Posterior Chain & Traps', sets: '3 Sets × 6-8 Reps', checked: false },
+        { id: 'f2', name: 'T-Bar Supported Rows', target: 'Back Thickness', sets: '4 Sets × 10 Reps', checked: false },
+        { id: 'f3', name: 'Close-Grip Lat Pulldown', target: 'Lower Lat Width', sets: '3 Sets × 12 Reps', checked: false },
+        { id: 'f4', name: 'Barbell EZ-Bar Bicep Curls', target: 'Biceps Peak', sets: '3 Sets × 10 Reps', checked: false },
+        { id: 'f5', name: 'Reverse Grip Forearm Curls', target: 'Forearm Grip Strength', sets: '3 Sets × 15 Reps', checked: false }
+      ],
+      sat: [
+        { id: 's1', name: 'Front Squats or Goblet Squats', target: 'Quad Dominance', sets: '4 Sets × 10 Reps', checked: false },
+        { id: 's2', name: 'Walking Dumbbell Lunges', target: 'Glutes & Stability', sets: '3 Sets × 12 Steps/leg', checked: false },
+        { id: 's3', name: 'Leg Extension Machine', target: 'Quad Teardrop Peak', sets: '3 Sets × 15 Reps', checked: false },
+        { id: 's4', name: 'Seated Calf Raises', target: 'Soleus (Lower Calf)', sets: '4 Sets × 20 Reps', checked: false },
+        { id: 's5', name: 'Ab Wheel Rollouts / Cable Crunches', target: 'Abdominal Wall', sets: '4 Sets × 15 Reps', checked: false }
+      ],
+      sun: [
+        { id: 'su1', name: 'Sunday Off: Full Muscle Recovery', target: 'Rest Day (No Heavy Lifting)', sets: 'Rest & Repair', checked: true },
+        { id: 'su2', name: 'Full Body Mobility & Light Stretching', target: 'Joint Flexibility & Soreness Relief', sets: '15-20 Mins', checked: false },
+        { id: 'su3', name: 'Hydration Target: 3.5L Fresh Water', target: 'Flush Toxins & Nutrient Delivery', sets: 'Daily Goal', checked: false }
+      ]
+    };
+
+    // Default Diet Plan
+    const DEFAULT_DIET_PLAN = [
+      { id: 'd1', name: 'Pre-Workout: Coffee + Banana + Soaked Almonds', desc: '1 cup black coffee, 1 ripe banana, 6 soaked almonds', cals: 160, protein: 4, iconKey: 'banana', emoji: '🍌' },
+      { id: 'd2', name: 'Breakfast: Protein Oats + Whey + Chia Seeds', desc: '60g rolled oats, 1 scoop whey, 10g chia seeds, water/milk', cals: 460, protein: 34, iconKey: 'oats', emoji: '🌾' },
+      { id: 'd3', name: 'Mid-Morning Snack: 100g Raw Peanuts / Boiled Eggs', desc: '100g raw peanuts or 3 boiled eggs for clean protein & fats', cals: 560, protein: 25, iconKey: 'peanuts', emoji: '🥜' },
+      { id: 'd4', name: 'Lunch: Chicken Breast / Soya Chunks + Brown Rice', desc: '150g grilled chicken/soya, 1.5 cup brown rice, salad', cals: 620, protein: 46, iconKey: 'chicken', emoji: '🍗' },
+      { id: 'd5', name: 'Evening Snack: Roasted Chana + Green Tea', desc: '50g roasted chana (gram), 1 cup green tea, 1 apple', cals: 260, protein: 12, iconKey: 'apple', emoji: '🍎' },
+      { id: 'd6', name: 'Dinner: Fresh Paneer Tikka / Fish + Steamed Veggies', desc: '150g paneer or fish fillet, broccoli, 1 multigrain roti', cals: 540, protein: 36, iconKey: 'paneer', emoji: '🧀' },
+      { id: 'd7', name: 'Bedtime: Haldi Milk (Turmeric Milk)', desc: '200ml warm milk with turmeric for muscle recovery', cals: 130, protein: 7, iconKey: 'milk', emoji: '🥛' }
+    ];
+
+    // State Objects
+    let userProfile = {
+      name: 'Rahul Sharma',
+      gender: 'male',
+      age: 24,
+      height: 175,
+      weight: 70,
+      goal: 'bulk', // bulk, cut, maintain
+      timeline: '6_months', // 3_months, 6_months, 12_months
+      activity: 1.55,
+      targetCals: 2550,
+      targetProtein: 145,
+      targetWater: 3.5,
+      isConfigured: false
+    };
+
+    let routines = JSON.parse(JSON.stringify(FULL_WEEK_ROUTINES));
+    let dietSchedule = JSON.parse(JSON.stringify(DEFAULT_DIET_PLAN));
+    let todayIntakeLog = []; // { id, name, cals, protein, time, timestamp }
+    let waterGlasses = 0;
+    let currentDayKey = 'mon';
+
+    // Helper: Determine today's day of week
+    function getTodayDayKey() {
+      const days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+      const d = new Date().getDay();
+      return days[d];
+    }
+
+    // Toast Notification helper
+    let toastTimeout = null;
+    function showToast(text, icon = '✨') {
+      const toast = document.getElementById('toast');
+      const msg = document.getElementById('toast-msg');
+      const iconEl = document.getElementById('toast-icon');
+      if (!toast) return;
+      msg.textContent = text;
+      iconEl.textContent = icon;
+      toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-3');
+      toast.classList.add('opacity-100', 'translate-y-0');
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove('opacity-100', 'translate-y-0');
+        toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-3');
+      }, 2200);
+    }
+
+    // Storage Management (Client-Side LocalStorage, Zero Server Cost)
+    function saveAll() {
+      try {
+        localStorage.setItem('gym_dost_profile', JSON.stringify(userProfile));
+        localStorage.setItem('gym_dost_routines', JSON.stringify(routines));
+        localStorage.setItem('gym_dost_diet_schedule', JSON.stringify(dietSchedule));
+        localStorage.setItem('gym_dost_intake_log', JSON.stringify(todayIntakeLog));
+        localStorage.setItem('gym_dost_water', waterGlasses.toString());
+        localStorage.setItem('gym_dost_day', currentDayKey);
+      } catch (e) {
+        console.warn('LocalStorage error:', e);
+      }
+    }
+
+    function loadAll() {
+      try {
+        const rawProfile = localStorage.getItem('gym_dost_profile');
+        if (rawProfile) {
+          userProfile = Object.assign(userProfile, JSON.parse(rawProfile));
+        }
+
+        const rawRoutines = localStorage.getItem('gym_dost_routines');
+        if (rawRoutines) {
+          routines = JSON.parse(rawRoutines);
+        }
+
+        const rawDiet = localStorage.getItem('gym_dost_diet_schedule');
+        if (rawDiet) {
+          dietSchedule = JSON.parse(rawDiet);
+        }
+
+        const rawIntake = localStorage.getItem('gym_dost_intake_log');
+        if (rawIntake) {
+          todayIntakeLog = JSON.parse(rawIntake);
+        }
+
+        const rawWater = localStorage.getItem('gym_dost_water');
+        if (rawWater) {
+          waterGlasses = parseInt(rawWater, 10) || 0;
+        }
+
+        // Set default day to today's current weekday
+        currentDayKey = getTodayDayKey();
+      } catch (e) {
+        console.warn('Load failed:', e);
+      }
+    }
+
+    // Profile Target Optimization Math (BMR Mifflin-St Jeor, TDEE, Timeline adjustment)
+    function calculateProfileTargets(p) {
+      const w = parseFloat(p.weight) || 70;
+      const h = parseFloat(p.height) || 175;
+      const a = parseInt(p.age, 10) || 24;
+      const act = parseFloat(p.activity) || 1.55;
+
+      // BMR
+      let bmr = (10 * w) + (6.25 * h) - (5 * a);
+      if (p.gender === 'female') {
+        bmr -= 161;
+      } else {
+        bmr += 5;
+      }
+
+      let tdee = bmr * act;
+
+      // Adjust for Goal & Timeline
+      // 3 months = more aggressive; 6 months = standard; 12 months = gentle
+      let calAdjustment = 0;
+      if (p.goal === 'bulk') {
+        if (p.timeline === '3_months') calAdjustment = 450;
+        else if (p.timeline === '6_months') calAdjustment = 350;
+        else calAdjustment = 250;
+      } else if (p.goal === 'cut') {
+        if (p.timeline === '3_months') calAdjustment = -600;
+        else if (p.timeline === '6_months') calAdjustment = -450;
+        else calAdjustment = -350;
+      } else {
+        calAdjustment = 0;
+      }
+
+      const finalCals = Math.round(tdee + calAdjustment);
+      // Protein target: 1.8g to 2.2g per kg bodyweight
+      let protPerKg = 2.0;
+      if (p.goal === 'bulk') protPerKg = 2.1;
+      if (p.goal === 'cut') protPerKg = 2.2; // preserve lean mass
+      if (p.goal === 'maintain') protPerKg = 1.8;
+
+      const finalProt = Math.round(w * protPerKg);
+      const finalWater = (w * 0.045).toFixed(1); // ~3-4 Liters
+
+      return {
+        cals: finalCals,
+        prot: finalProt,
+        water: parseFloat(finalWater),
+        bmi: (w / ((h / 100) * (h / 100))).toFixed(1)
+      };
+    }
+
+    // Apply Profile to Dashboard UI
+    function renderProfileHeader() {
+      const targets = calculateProfileTargets(userProfile);
+      userProfile.targetCals = targets.cals;
+      userProfile.targetProtein = targets.prot;
+      userProfile.targetWater = targets.water;
+
+      document.getElementById('user-display-name').textContent = userProfile.name || 'Rahul Sharma';
+      document.getElementById('header-subtitle').textContent = `Namaste ${userProfile.name.split(' ')[0]}! Aapka Personal Gym & Diet Saathi`;
+      document.getElementById('stat-weight').textContent = `${userProfile.weight} kg`;
+      document.getElementById('stat-height').textContent = `${userProfile.height} cm`;
+      document.getElementById('stat-bmi').textContent = targets.bmi;
+
+      // Goal text
+      let goalText = 'Weight Gain (Muscle Bulk)';
+      if (userProfile.goal === 'cut') goalText = 'Weight Loss (Fat Cutting)';
+      if (userProfile.goal === 'maintain') goalText = 'Stay Lean & Fit (Recomposition)';
+
+      // Timeline text
+      let timeText = '6 Months Target';
+      if (userProfile.timeline === '3_months') timeText = '3 Months Fast Track';
+      if (userProfile.timeline === '12_months') timeText = '1 Year Sustainable Transformation';
+
+      document.getElementById('user-timeline-badge').textContent = timeText;
+      document.getElementById('user-goal-summary').innerHTML = `
+        Goal: <strong class="text-amber-400">${goalText}</strong> | 
+        Target: <strong class="text-white">${targets.cals.toLocaleString()} kcal / day</strong> | 
+        Protein: <strong class="text-sky-400">${targets.prot}g / day</strong>
+      `;
+
+      // Update Target labels in cards
+      document.getElementById('lbl-cal-target').textContent = `/ ${targets.cals.toLocaleString()}`;
+      document.getElementById('lbl-prot-target').textContent = `/ ${targets.prot}g`;
+      document.getElementById('lbl-water-target').textContent = `${targets.water} L target`;
+    }
+
+    // Live Nutrition & Intake Tracker Calculations (Remaining Balance)
+    function updateLiveNutritionBalance() {
+      let eatenCals = 0;
+      let eatenProt = 0;
+
+      todayIntakeLog.forEach(item => {
+        eatenCals += Number(item.cals) || 0;
+        eatenProt += Number(item.protein) || 0;
+      });
+
+      const targetCals = userProfile.targetCals || 2550;
+      const targetProt = userProfile.targetProtein || 145;
+
+      const remCals = targetCals - eatenCals;
+      const remProt = targetProt - eatenProt;
+
+      // Update numbers
+      document.getElementById('kpi-cals-eaten').textContent = eatenCals.toLocaleString();
+      document.getElementById('kpi-prot-eaten').textContent = `${eatenProt}g`;
+
+      // Calorie remaining
+      if (remCals > 0) {
+        document.getElementById('kpi-cals-rem').textContent = `${remCals.toLocaleString()} kcal bachi`;
+        document.getElementById('kpi-cals-rem').className = 'text-xs font-bold text-amber-400';
+      } else {
+        document.getElementById('kpi-cals-rem').textContent = `Target Completed! (+${Math.abs(remCals)})`;
+        document.getElementById('kpi-cals-rem').className = 'text-xs font-bold text-emerald-400';
+      }
+
+      // Protein remaining
+      if (remProt > 0) {
+        document.getElementById('kpi-prot-rem').textContent = `${remProt}g aur chahiye`;
+        document.getElementById('kpi-prot-rem').className = 'text-xs font-bold text-indigo-400';
+      } else {
+        document.getElementById('kpi-prot-rem').textContent = `Protein Goal Met! (+${Math.abs(remProt)}g)`;
+        document.getElementById('kpi-prot-rem').className = 'text-xs font-bold text-emerald-400';
+      }
+
+      // Progress Bars
+      const calPct = Math.min(100, Math.round((eatenCals / targetCals) * 100));
+      const protPct = Math.min(100, Math.round((eatenProt / targetProt) * 100));
+
+      document.getElementById('bar-cals').style.width = `${calPct}%`;
+      document.getElementById('bar-prot').style.width = `${protPct}%`;
+
+      document.getElementById('sub-cal-rem').textContent = `${calPct}% complete (Target: ${targetCals.toLocaleString()} kcal)`;
+      document.getElementById('sub-prot-rem').textContent = `${protPct}% complete (${remProt > 0 ? remProt + 'g pending' : 'Goal done!'})`;
+
+      // Status message
+      const statusEl = document.getElementById('nutrition-status-msg');
+      if (protPct >= 100 && calPct >= 90) {
+        statusEl.textContent = '🌟 Excellent! Aaj ka nutrition complete!';
+        statusEl.className = 'text-xs font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-lg';
+      } else if (remProt > 0) {
+        statusEl.textContent = `⚡ Abhi ${remProt}g Protein aur ${Math.max(0, remCals)} kcal baaki hai`;
+        statusEl.className = 'text-xs font-semibold text-sky-400 bg-sky-500/10 border border-sky-500/20 px-3 py-1 rounded-lg';
+      }
+
+      // Water Bar
+      const waterL = (waterGlasses * 0.25).toFixed(1);
+      const waterPct = Math.min(100, Math.round((waterL / userProfile.targetWater) * 100));
+      document.getElementById('kpi-water-logged').textContent = `${waterGlasses} Glass (${waterL} L)`;
+      document.getElementById('bar-water').style.width = `${waterPct}%`;
+
+      // Update Workout KPI
+      const dayList = routines[currentDayKey] || [];
+      const totalEx = dayList.length;
+      const doneEx = dayList.filter(x => x.checked).length;
+      const exPct = totalEx > 0 ? Math.round((doneEx / totalEx) * 100) : 0;
+      document.getElementById('kpi-workout-count').textContent = `${doneEx} / ${totalEx}`;
+      document.getElementById('kpi-workout-pct').textContent = `${exPct}%`;
+      document.getElementById('bar-workout').style.width = `${exPct}%`;
+    }
+
+    // Render "Aaj Maine Kya Khaya" Intake Log DOM
+    function renderIntakeLog() {
+      const container = document.getElementById('intake-log-container');
+      const countEl = document.getElementById('intake-count-text');
+      container.innerHTML = '';
+
+      countEl.textContent = `${todayIntakeLog.length} items logged`;
+
+      if (todayIntakeLog.length === 0) {
+        container.innerHTML = `
+          <div class="p-6 bg-slate-950/60 rounded-xl border border-dashed border-slate-800 text-center text-xs text-slate-500">
+            <span>Aapne aaj abhi tak kuch log nahi kiya hai. Upar diye gaye quick snacks (jaise <strong>100g Raw Peanuts</strong> ya <strong>Eggs</strong>) par tap karein ya <strong>+ Log Custom Food</strong> dabayein!</span>
+          </div>
+        `;
+        return;
+      }
+
+      todayIntakeLog.forEach((item) => {
+        const row = document.createElement('div');
+        row.className = 'p-3 rounded-xl bg-slate-950/90 border border-slate-800 flex items-center justify-between gap-3';
+        row.innerHTML = `
+          <div class="flex items-center gap-2.5 min-w-0">
+            <div class="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center font-bold text-sm flex-shrink-0">
+              ${item.emoji || '🍽️'}
+            </div>
+            <div class="truncate">
+              <span class="text-xs font-bold text-slate-100 block truncate">${item.name}</span>
+              <span class="text-[10px] text-slate-400">${item.time || 'Logged'} • ${item.cals} kcal</span>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 flex-shrink-0">
+            <span class="text-xs font-black text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 px-2 py-0.5 rounded">
+              +${item.protein}g Protein
+            </span>
+            <button class="btn-del-intake text-slate-600 hover:text-rose-400 text-xs px-1" data-id="${item.id}" title="Delete entry">
+              ✕
+            </button>
+          </div>
+        `;
+
+        row.querySelector('.btn-del-intake').onclick = () => {
+          todayIntakeLog = todayIntakeLog.filter(x => x.id !== item.id);
+          saveAll();
+          renderIntakeLog();
+          updateLiveNutritionBalance();
+          showToast('Item removed from intake', '🗑️');
+        };
+
+        container.appendChild(row);
+      });
+    }
+
+    // Render Quick Snack Chips (1-Click Add)
+    function renderQuickSnacks() {
+      const container = document.getElementById('quick-snacks-container');
+      container.innerHTML = '';
+
+      QUICK_SNACKS.forEach(snack => {
+        const btn = document.createElement('button');
+        btn.className = 'px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700/80 hover:border-emerald-500 hover:bg-slate-800 text-[11px] text-slate-200 flex items-center gap-1.5 transition flex-shrink-0';
+        btn.innerHTML = `
+          <span>${snack.emoji}</span>
+          <span class="font-medium">${snack.name}</span>
+          <span class="text-indigo-400 font-bold text-[10px]">${snack.protein}g P</span>
+          <span class="text-emerald-400 font-black ml-1">+</span>
+        `;
+
+        btn.onclick = () => {
+          const entry = {
+            id: 'intake_' + Date.now(),
+            name: snack.name,
+            cals: snack.cals,
+            protein: snack.protein,
+            emoji: snack.emoji,
+            time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+          };
+          todayIntakeLog.unshift(entry);
+          saveAll();
+          renderIntakeLog();
+          updateLiveNutritionBalance();
+          showToast(`${snack.name} logged into your day!`, '🥗');
+        };
+
+        container.appendChild(btn);
+      });
+    }
+
+    // Render Workout Chart with Sunday OFF
+    function renderWorkouts() {
+      const listContainer = document.getElementById('workout-list-container');
+      const sundayBanner = document.getElementById('sunday-off-banner');
+      const currentList = routines[currentDayKey] || [];
+      listContainer.innerHTML = '';
+
+      // Sunday Banner toggle
+      if (currentDayKey === 'sun') {
+        sundayBanner.classList.remove('hidden');
+        document.getElementById('badge-workout-day').textContent = 'Sunday: REST DAY';
+      } else {
+        sundayBanner.classList.add('hidden');
+        const dayNames = { mon: 'Push Day', tue: 'Pull Day', wed: 'Legs Day', thu: 'Push 2', fri: 'Pull 2', sat: 'Legs 2' };
+        document.getElementById('badge-workout-day').textContent = dayNames[currentDayKey] || 'Workout Day';
+      }
+
+      currentList.forEach((ex) => {
+        const card = document.createElement('div');
+        card.className = `p-3 rounded-xl bg-slate-950/70 border border-slate-800 flex items-center justify-between gap-2.5 transition hover:border-slate-700 ${ex.checked ? 'card-strike' : ''}`;
+
+        card.innerHTML = `
+          <div class="flex items-center gap-3 min-w-0">
+            <input type="checkbox" id="chk-ex-${ex.id}" ${ex.checked ? 'checked' : ''} 
+                   class="w-4 h-4 rounded text-emerald-500 bg-slate-800 border-slate-700 focus:ring-emerald-500 cursor-pointer flex-shrink-0">
+            <div class="truncate">
+              <span class="text-xs font-bold text-slate-100 block truncate">${ex.name}</span>
+              <span class="text-[11px] text-slate-400 block truncate">${ex.target}</span>
+            </div>
+          </div>
+          <div class="text-right flex items-center gap-1.5 flex-shrink-0">
+            <!-- YouTube Video Guide Button -->
+            <button class="btn-yt-guide px-2 py-1 rounded-lg bg-red-600/15 hover:bg-red-600/30 text-red-400 border border-red-500/30 text-[11px] font-semibold transition flex items-center gap-1 shadow-sm" 
+                    title="Watch proper form on YouTube"
+                    data-name="${ex.name}">
+              <svg class="w-3.5 h-3.5 fill-current text-red-500" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+              <span class="hidden sm:inline">Guide</span>
+            </button>
+
+            <!-- Sets & Reps Badge -->
+            <span class="text-[11px] font-semibold px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">${ex.sets}</span>
+            
+            <!-- Delete Button -->
+            <button class="btn-del-ex text-slate-600 hover:text-rose-400 text-xs px-1" data-id="${ex.id}" title="Remove">✕</button>
+          </div>
+        `;
+
+        // Checkbox listener
+        card.querySelector(`#chk-ex-${ex.id}`).onchange = (e) => {
+          ex.checked = e.target.checked;
+          if (ex.checked) {
+            card.classList.add('card-strike');
+            showToast('Set finished!', '💪');
+          } else {
+            card.classList.remove('card-strike');
+          }
+          saveAll();
+          updateLiveNutritionBalance();
+        };
+
+        // YouTube guide
+        card.querySelector('.btn-yt-guide').onclick = (e) => {
+          e.stopPropagation();
+          const query = encodeURIComponent(`${ex.name} proper form gym exercise tutorial`);
+          window.open(`https://www.youtube.com/results?search_query=${query}`, '_blank', 'noopener,noreferrer');
+          showToast('Opening YouTube form guide...', '▶️');
+        };
+
+        // Delete button
+        card.querySelector('.btn-del-ex').onclick = (e) => {
+          e.stopPropagation();
+          routines[currentDayKey] = routines[currentDayKey].filter(item => item.id !== ex.id);
+          saveAll();
+          renderWorkouts();
+          updateLiveNutritionBalance();
+          showToast('Exercise removed', '🗑️');
+        };
+
+        listContainer.appendChild(card);
+      });
+
+      document.getElementById('filter-workout-day').value = currentDayKey;
+    }
+
+    // Helper for 3D Diet Icons
+    function get3DIconHTML(meal) {
+      const iconUrl = ICONS_3D[meal.iconKey] || ICONS_3D.defaultMeal;
+      const emojiFallback = meal.emoji || '🥑';
+      return `
+        <div class="w-8 h-8 rounded-lg bg-slate-800/80 flex items-center justify-center flex-shrink-0 p-1 border border-slate-700/60 shadow-inner">
+          <img src="${iconUrl}" 
+               alt="${meal.name}" 
+               class="w-full h-full object-contain filter drop-shadow-sm" 
+               loading="lazy"
+               onerror="this.onerror=null; this.parentElement.innerHTML='<span class=\\'text-lg\\'>${emojiFallback}</span>';">
+        </div>
+      `;
+    }
+
+    // Render Diet Schedule List
+    function renderDietSchedule() {
+      const container = document.getElementById('diet-list-container');
+      container.innerHTML = '';
+
+      dietSchedule.forEach((meal) => {
+        const card = document.createElement('div');
+        card.className = 'p-3 rounded-xl bg-slate-950/70 border border-slate-800 flex items-center justify-between gap-3 hover:border-slate-700 transition';
+        card.innerHTML = `
+          <div class="flex items-center gap-2.5 min-w-0">
+            ${get3DIconHTML(meal)}
+            <div class="truncate">
+              <span class="text-xs font-bold text-slate-100 block truncate">${meal.name}</span>
+              <span class="text-[11px] text-slate-400 block truncate">${meal.desc}</span>
+            </div>
+          </div>
+          <div class="text-right flex items-center gap-2 flex-shrink-0">
+            <div class="text-right">
+              <span class="text-[11px] font-semibold px-2 py-0.5 rounded bg-sky-500/10 text-sky-400 border border-sky-500/20">${meal.cals} kcal</span>
+              <span class="text-[10px] text-slate-400 block mt-0.5">${meal.protein}g Protein</span>
+            </div>
+            <!-- Quick Log this meal button directly to Intake tracker -->
+            <button class="btn-log-meal-direct px-2 py-1 rounded bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[11px] font-bold" title="Log into today's intake">
+              + Log
+            </button>
+            <button class="btn-meal-google text-slate-500 hover:text-sky-400 text-xs px-1" title="Search Google Nutrition Facts">
+              🔍
+            </button>
+          </div>
+        `;
+
+        // Direct log to intake
+        card.querySelector('.btn-log-meal-direct').onclick = () => {
+          const entry = {
+            id: 'intake_' + Date.now(),
+            name: meal.name.split(':')[1] || meal.name,
+            cals: meal.cals,
+            protein: meal.protein,
+            emoji: meal.emoji || '🥑',
+            time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+          };
+          todayIntakeLog.unshift(entry);
+          saveAll();
+          renderIntakeLog();
+          updateLiveNutritionBalance();
+          showToast(`Logged into today's intake!`, '🥗');
+        };
+
+        // Google Nutrition Facts lookup
+        card.querySelector('.btn-meal-google').onclick = () => {
+          const query = encodeURIComponent(`${meal.name} food nutrition facts calories protein carbs fat per 100g`);
+          window.open(`https://www.google.com/search?q=${query}`, '_blank', 'noopener,noreferrer');
+        };
+
+        container.appendChild(card);
+      });
+    }
+
+    // Render Quick Food Library Suggestions
+    function renderFoodSuggestions(filterText = '') {
+      const container = document.getElementById('quick-food-suggestions');
+      container.innerHTML = '';
+      const query = filterText.toLowerCase().trim();
+
+      const filtered = query 
+        ? QUICK_FOOD_LIBRARY.filter(f => f.name.toLowerCase().includes(query) || f.desc.toLowerCase().includes(query))
+        : QUICK_FOOD_LIBRARY.slice(0, 7);
+
+      filtered.forEach(item => {
+        const chip = document.createElement('button');
+        chip.className = 'px-2 py-1 rounded-lg bg-slate-900 border border-slate-700/80 hover:border-sky-500 hover:bg-slate-800 text-[11px] text-slate-300 flex items-center gap-1.5 transition flex-shrink-0';
+        chip.innerHTML = `
+          <span>${item.emoji}</span>
+          <span class="font-medium text-white">${item.name}</span>
+          <span class="text-sky-400 font-bold text-[10px]">${item.protein}g P</span>
+          <span class="text-slate-500 text-[10px]">(${item.cals}k)</span>
+          <span class="text-emerald-400 font-black ml-0.5">+ Log</span>
+        `;
+
+        chip.onclick = () => {
+          const entry = {
+            id: 'intake_' + Date.now(),
+            name: item.name,
+            cals: item.cals,
+            protein: item.protein,
+            emoji: item.emoji,
+            time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+          };
+          todayIntakeLog.unshift(entry);
+          saveAll();
+          renderIntakeLog();
+          updateLiveNutritionBalance();
+          showToast(`${item.name} added to today's intake!`, '🥑');
+        };
+
+        container.appendChild(chip);
+      });
+    }
+
+    // Google Restricted Nutrition Search Helper
+    function searchGoogleFoodNutrition(foodName) {
+      if (!foodName || !foodName.trim()) {
+        showToast('Pehle koi food item type karein!', '⚠️');
+        return;
+      }
+      const cleanTerm = foodName.trim();
+      const query = encodeURIComponent(`${cleanTerm} food nutrition facts calories protein carbs fat per 100g`);
+      window.open(`https://www.google.com/search?q=${query}`, '_blank', 'noopener,noreferrer');
+      showToast(`Searching nutrition for: ${cleanTerm}`, '🔍');
+    }
+
+    // Setup Modals and Interaction Events
+    function setupInteractions() {
+      // Onboarding Modal Handling
+      const modalOb = document.getElementById('modal-onboarding');
+      const formOb = document.getElementById('form-onboarding');
+
+      document.getElementById('btn-open-profile').onclick = () => {
+        populateOnboardingForm();
+        modalOb.classList.remove('hidden');
+      };
+
+      document.getElementById('btn-re-edit-profile').onclick = () => {
+        populateOnboardingForm();
+        modalOb.classList.remove('hidden');
+      };
+
+      document.getElementById('btn-close-onboarding').onclick = () => {
+        modalOb.classList.add('hidden');
+      };
+
+      function populateOnboardingForm() {
+        document.getElementById('ob-name').value = userProfile.name || '';
+        document.getElementById('ob-gender').value = userProfile.gender || 'male';
+        document.getElementById('ob-age').value = userProfile.age || 24;
+        document.getElementById('ob-weight').value = userProfile.weight || 70;
+        document.getElementById('ob-height').value = userProfile.height || 175;
+        document.getElementById('ob-goal').value = userProfile.goal || 'bulk';
+        document.getElementById('ob-timeline').value = userProfile.timeline || '6_months';
+        document.getElementById('ob-activity').value = userProfile.activity || 1.55;
+      }
+
+      formOb.onsubmit = (e) => {
+        e.preventDefault();
+        userProfile.name = document.getElementById('ob-name').value.trim() || 'Rahul Sharma';
+        userProfile.gender = document.getElementById('ob-gender').value;
+        userProfile.age = parseInt(document.getElementById('ob-age').value, 10) || 24;
+        userProfile.weight = parseFloat(document.getElementById('ob-weight').value) || 70;
+        userProfile.height = parseFloat(document.getElementById('ob-height').value) || 175;
+        userProfile.goal = document.getElementById('ob-goal').value;
+        userProfile.timeline = document.getElementById('ob-timeline').value;
+        userProfile.activity = parseFloat(document.getElementById('ob-activity').value) || 1.55;
+        userProfile.isConfigured = true;
+
+        renderProfileHeader();
+        updateLiveNutritionBalance();
+        saveAll();
+        modalOb.classList.add('hidden');
+        showToast('Profile & Goals successfully optimized!', '🎯');
+      };
+
+      // Custom Food Logging Modal
+      const modalLogFood = document.getElementById('modal-log-food');
+      document.getElementById('btn-open-log-food').onclick = () => {
+        document.getElementById('log-food-name').value = '';
+        document.getElementById('log-food-cals').value = '';
+        document.getElementById('log-food-prot').value = '';
+        modalLogFood.classList.remove('hidden');
+      };
+      document.getElementById('btn-close-log-food').onclick = () => modalLogFood.classList.add('hidden');
+
+      document.getElementById('btn-save-food-log').onclick = () => {
+        const name = document.getElementById('log-food-name').value.trim();
+        const cals = parseInt(document.getElementById('log-food-cals').value, 10) || 0;
+        const prot = parseInt(document.getElementById('log-food-prot').value, 10) || 0;
+        const timing = document.getElementById('log-food-time').value;
+
+        if (!name) {
+          alert('Food item ka naam likhein.');
+          return;
+        }
+
+        const entry = {
+          id: 'intake_' + Date.now(),
+          name: name,
+          cals: cals,
+          protein: prot,
+          time: timing,
+          emoji: '🍽️'
+        };
+
+        todayIntakeLog.unshift(entry);
+        saveAll();
+        renderIntakeLog();
+        updateLiveNutritionBalance();
+        modalLogFood.classList.add('hidden');
+        showToast(`${name} added to your intake!`, '✅');
+      };
+
+      // Search Bar Google Facts & Quick Log
+      const searchInput = document.getElementById('food-search-input');
+      const btnClear = document.getElementById('btn-clear-food-search');
+      const btnGoogle = document.getElementById('btn-google-nutrition');
+      const btnQuickLog = document.getElementById('btn-quick-log-searched');
+
+      searchInput.oninput = () => {
+        const val = searchInput.value;
+        btnClear.classList.toggle('hidden', !val.trim());
+        renderFoodSuggestions(val);
+      };
+
+      btnClear.onclick = () => {
+        searchInput.value = '';
+        btnClear.classList.add('hidden');
+        renderFoodSuggestions('');
+        searchInput.focus();
+      };
+
+      searchInput.onkeydown = (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          searchGoogleFoodNutrition(searchInput.value);
+        }
+      };
+
+      btnGoogle.onclick = () => searchGoogleFoodNutrition(searchInput.value);
+
+      btnQuickLog.onclick = () => {
+        const val = searchInput.value.trim();
+        modalLogFood.classList.remove('hidden');
+        if (val) {
+          document.getElementById('log-food-name').value = val;
+          const match = QUICK_FOOD_LIBRARY.find(f => f.name.toLowerCase().includes(val.toLowerCase()));
+          if (match) {
+            document.getElementById('log-food-cals').value = match.cals;
+            document.getElementById('log-food-prot').value = match.protein;
+          }
+        }
+      };
+
+      // Add Custom Exercise Modal
+      const modalEx = document.getElementById('modal-exercise');
+      document.getElementById('btn-add-exercise-modal').onclick = () => modalEx.classList.remove('hidden');
+      document.getElementById('btn-close-exercise').onclick = () => modalEx.classList.add('hidden');
+
+      document.getElementById('btn-save-exercise').onclick = () => {
+        const name = document.getElementById('new-ex-name').value.trim();
+        const target = document.getElementById('new-ex-target').value.trim() || 'General Hypertrophy';
+        const sets = document.getElementById('new-ex-sets').value.trim() || '3 Sets × 10 Reps';
+
+        if (!name) {
+          alert('Exercise ka naam dalein.');
+          return;
+        }
+
+        routines[currentDayKey].push({
+          id: 'custom_ex_' + Date.now(),
+          name,
+          target,
+          sets,
+          checked: false
+        });
+
+        saveAll();
+        renderWorkouts();
+        updateLiveNutritionBalance();
+        modalEx.classList.add('hidden');
+        document.getElementById('new-ex-name').value = '';
+        showToast('Exercise added to current day!', '🏋️');
+      };
+
+      // Water Glass button
+      document.getElementById('btn-add-water').onclick = () => {
+        waterGlasses += 1;
+        saveAll();
+        updateLiveNutritionBalance();
+        showToast('Water logged (+250ml)!', '💧');
+      };
+
+      // Workout Day filter select
+      document.getElementById('filter-workout-day').onchange = (e) => {
+        currentDayKey = e.target.value;
+        saveAll();
+        renderWorkouts();
+        updateLiveNutritionBalance();
+      };
+
+      // Reset day button
+      document.getElementById('btn-reset-day').onclick = () => {
+        if (confirm('Kya aap aaj ka khana (intake log) aur workout checks reset karna chahte hain?')) {
+          todayIntakeLog = [];
+          waterGlasses = 0;
+          Object.keys(routines).forEach(k => {
+            routines[k].forEach(x => { if (k !== 'sun' || x.id !== 'su1') x.checked = false; });
+          });
+          saveAll();
+          renderIntakeLog();
+          renderWorkouts();
+          updateLiveNutritionBalance();
+          showToast('Aaj ka checklist reset kar diya gaya!', '🔄');
+        }
+      };
+    }
+
+    // Navigation Tabs Setup
+    function setupTabs() {
+      const tabAll = document.getElementById('tab-all');
+      const tabIntake = document.getElementById('tab-intake');
+      const tabWorkout = document.getElementById('tab-workout');
+      const tabDiet = document.getElementById('tab-diet');
+      const tabHistory = document.getElementById('tab-history');
+
+      const viewDashboard = document.getElementById('view-dashboard');
+      const viewHistory = document.getElementById('view-history');
+      const secIntake = document.getElementById('sec-intake');
+      const secWorkout = document.getElementById('sec-workout');
+      const secDiet = document.getElementById('sec-diet');
+
+      const allTabs = [tabAll, tabIntake, tabWorkout, tabDiet, tabHistory];
+
+      function clearTabStyles() {
+        allTabs.forEach(t => {
+          t.className = 'tab-btn px-4 py-1.5 text-xs font-semibold rounded-lg bg-slate-800/80 text-slate-300 hover:text-white transition';
+        });
+      }
+
+      tabAll.onclick = () => {
+        clearTabStyles();
+        tabAll.className = 'tab-btn px-4 py-1.5 text-xs font-bold rounded-lg bg-emerald-500 text-slate-950 transition shadow-sm';
+        viewDashboard.classList.remove('hidden');
+        secIntake.classList.remove('hidden');
+        secWorkout.classList.remove('hidden');
+        secDiet.classList.remove('hidden');
+        viewHistory.classList.add('hidden');
+      };
+
+      tabIntake.onclick = () => {
+        clearTabStyles();
+        tabIntake.className = 'tab-btn px-4 py-1.5 text-xs font-bold rounded-lg bg-emerald-500 text-slate-950 transition shadow-sm';
+        viewDashboard.classList.remove('hidden');
+        secIntake.classList.remove('hidden');
+        secWorkout.classList.add('hidden');
+        secDiet.classList.add('hidden');
+        viewHistory.classList.add('hidden');
+      };
+
+      tabWorkout.onclick = () => {
+        clearTabStyles();
+        tabWorkout.className = 'tab-btn px-4 py-1.5 text-xs font-bold rounded-lg bg-emerald-500 text-slate-950 transition shadow-sm';
+        viewDashboard.classList.remove('hidden');
+        secIntake.classList.add('hidden');
+        secWorkout.classList.remove('hidden');
+        secDiet.classList.add('hidden');
+        viewHistory.classList.add('hidden');
+      };
+
+      tabDiet.onclick = () => {
+        clearTabStyles();
+        tabDiet.className = 'tab-btn px-4 py-1.5 text-xs font-bold rounded-lg bg-sky-500 text-slate-950 transition shadow-sm';
+        viewDashboard.classList.remove('hidden');
+        secIntake.classList.add('hidden');
+        secWorkout.classList.add('hidden');
+        secDiet.classList.remove('hidden');
+        viewHistory.classList.add('hidden');
+      };
+
+      tabHistory.onclick = () => {
+        clearTabStyles();
+        tabHistory.className = 'tab-btn px-4 py-1.5 text-xs font-bold rounded-lg bg-amber-500 text-slate-950 transition shadow-sm';
+        viewDashboard.classList.add('hidden');
+        secDiet.classList.add('hidden');
+        viewHistory.classList.remove('hidden');
+      };
+    }
+
+    // App Initialization
+    window.addEventListener('DOMContentLoaded', () => {
+      loadAll();
+      renderProfileHeader();
+      renderWorkouts();
+      renderDietSchedule();
+      renderQuickSnacks();
+      renderFoodSuggestions('');
+      renderIntakeLog();
+      updateLiveNutritionBalance();
+      setupInteractions();
+      setupTabs();
+
+      // Show Onboarding automatically if profile was never configured
+      if (!userProfile.isConfigured && !localStorage.getItem('gym_dost_profile')) {
+        document.getElementById('modal-onboarding').classList.remove('hidden');
+      }
+    });
+  </script>
+</body>
+</html>
+```
