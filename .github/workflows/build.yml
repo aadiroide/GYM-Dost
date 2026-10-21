@@ -16,14 +16,24 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v3
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
 
-      - name: Generate Wrapper if missing
+      - name: Setup Gradle 8.7
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: '8.7'
+
+      - name: Create Dummy google-services.json if missing
         run: |
-          if [ ! -f "gradlew" ]; then
-            gradle wrapper
+          mkdir -p app
+          if [ ! -f "app/google-services.json" ]; then
+            echo '{"project_info":{"project_number":"123456789","project_id":"gym-dost","storage_bucket":"gym-dost.appspot.com"},"client":[{"client_info":{"mobilesdk_app_id":"1:123456789:android:abcdef","android_client_info":{"package_name":"com.gymdost.app"}},"oauth_client":[],"api_key":[{"current_key":"dummy_key"}],"services":{"analytics_service":{"status":1}}}]}' > app/google-services.json
           fi
+
+      - name: Setup Gradlew with Gradle 8.7
+        run: |
+          gradle wrapper --gradle-version 8.7
           chmod +x gradlew
 
       - name: Build Debug APK
